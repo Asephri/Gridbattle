@@ -9,7 +9,7 @@ Copyright (C) 2023-2024 Asephri. All rights reserved.
 /* Externs. */
 extern App app;
 
-/* If A keyboard key is NOT pressed.
+/* If A keyboard key is NOT pressed. */
 static void doKeyUp(SDL_KeyboardEvent *event)
 {
 	if (event->repeat == 0 && event->keysym.scancode < MAX_KEYBOARD_KEYS)
@@ -18,7 +18,7 @@ static void doKeyUp(SDL_KeyboardEvent *event)
 	}
 }
 
-If A keyboard key IS pressed.
+/* If A keyboard key IS pressed. */
 static void doKeyDown(SDL_KeyboardEvent *event)
 {
 	if (event->repeat == 0 && event->keysym.scancode < MAX_KEYBOARD_KEYS)
@@ -26,7 +26,7 @@ static void doKeyDown(SDL_KeyboardEvent *event)
 		app.keyboard[event->keysym.scancode] = 1;
 	}
 }
-*/
+
 /* Game Input Reciever*/
 void doInput(void)
 {
@@ -44,7 +44,12 @@ void doInput(void)
                 exit(0);
                 break;
             case SDL_KEYDOWN: // If keydown is pressed.
-                printf("Keydown was pressed!\n");
+                //printf("Keydown was pressed!\n");
+                doKeyDown(&event.key);
+                break;
+            case SDL_KEYUP: // If keydown isnt pressed.
+                //printf("Keydown was released!\n");
+                doKeyUp(&event.key);
                 break;
             default: // Default outcome.
                 //printf("default break was called in SDL_PollEvent\n");

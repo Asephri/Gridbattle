@@ -18,7 +18,7 @@ void prepareScene(void)
     // Console message.
     //printf("Preparing the Renderer.\n");
     // Overall drawcolour.
-    SDL_SetRenderDrawColor(app.renderer, 0,0,0,255);
+    SDL_SetRenderDrawColor(app.renderer, 0,255,0,255);
     SDL_RenderClear(app.renderer);
     // Console Message.
     //printf("Successful.\n");
@@ -51,8 +51,8 @@ static SDL_Texture *getTexture(char *name)
 }
 
 /* add Textures from cache. */
- static void addTextureToCache(char *name, SDL_Texture *sdlTexture)
- {
+static void addTextureToCache(char *name, SDL_Texture *sdlTexture)
+{
     // Console message.
     printf("Adding Textures to cache.\n");
     Texture *texture;
@@ -65,12 +65,12 @@ static SDL_Texture *getTexture(char *name)
 
     STRNCPY(texture->name, name, MAX_NAME_LENGTH);
     texture->texture = sdlTexture;
-    printf("Successful\n");
- }
+    printf("Successful.\n");
+}
 
- /* Load Textures. */
- SDL_Texture *loadTexture(char *filename)
- {
+/* Load Textures. */
+SDL_Texture *loadTexture(char *filename)
+{
     // Console message.
     //printf("Loading Textures.\n");
     SDL_Texture *texture;
@@ -81,16 +81,16 @@ static SDL_Texture *getTexture(char *name)
     {
         // SDL Error Message.
         SDL_LogMessage(SDL_LOG_CATEGORY_APPLICATION, SDL_LOG_PRIORITY_INFO, "Loading %s...", filename);
-    texture = IMG_LoadTexture(app.renderer, filename);
-    addTextureToCache(filename, texture);
+        texture = IMG_LoadTexture(app.renderer, filename);
+        addTextureToCache(filename, texture);
     }
     return texture;
     //printf("Successful.\n");
- }
+}
 
- /* Blit function for Textures. */
- void blit(SDL_Texture *texture, int x, int y, int center)
- {
+/* Blit function for Textures. */
+void blit(SDL_Texture *texture, int x, int y, int center)
+{
     // Console message.
     //printf("Applying Textures.\n");
     SDL_Rect dest;
@@ -108,11 +108,11 @@ static SDL_Texture *getTexture(char *name)
     // Apply Texture.
     SDL_RenderCopy(app.renderer, texture, NULL, &dest);
     //printf("Successful.\n");
- }
+}
 
- /* blitRect. */
- void blitRect(SDL_Texture *texture, SDL_Rect *src, int x, int y)
- {
+/* Create rectangle for texture. */
+void blitRect(SDL_Texture *texture, SDL_Rect *src, int x, int y)
+{
     SDL_Rect dest;
 
     dest.x = x;
@@ -121,4 +121,18 @@ static SDL_Texture *getTexture(char *name)
     dest.h = src->h;
 
     SDL_RenderCopy(app.renderer, texture, src, &dest);
- }
+}
+
+/* Rotate texture. */
+void blitRotated(SDL_Texture *texture, int x, int y, float angle)
+{
+    SDL_Rect dstRect;
+
+    dstRect.x = x; // Where to draw.
+    dstRect.y = y; // Where to draw at y.
+    SDL_QueryTexture(texture, NULL, NULL, &dstRect.w, &dstRect.h);
+    dstRect.x -= (dstRect.w / 2); // Shift texture by half width.
+    dstRect.y -= (dstRect.h / 2);// Shift texture by half height.
+
+    SDL_RenderCopyEx(app.renderer, texture, NULL, &dstRect, angle, NULL, SDL_FLIP_NONE);
+}

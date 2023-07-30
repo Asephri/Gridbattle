@@ -12,6 +12,9 @@ Copyright (C) 2023-2024 Asephri. All rights reserved.
 
 /* Externs. */
 App app;
+Entity *playertank;
+Entity *player;
+Stage stage;
 
 /* Functions. */
 static void capFrameRate(long *then, float *remainder);

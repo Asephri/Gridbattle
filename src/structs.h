@@ -4,6 +4,7 @@ Copyright (C) 2023-2024 Asephri. All rights reserved.
 
 /* Type definitions for structures. */
 typedef struct Texture Texture;
+typedef struct Entity Entity;
 
 /* App delegation structure.*/
 typedef struct
@@ -15,7 +16,7 @@ typedef struct
 /* Texture structure. */
 struct Texture
 {
-    char name[MAX_KEYBOARD_KEYS];
+    char name[MAX_NAME_LENGTH];
     SDL_Texture *texture;
     Texture *next;
 };
@@ -25,7 +26,23 @@ typedef struct
 {
     int x;
     int y;
+    int button[MAX_MOUSE_BUTTONS];
 } Mouse;
+
+/* Entity struct. */
+struct Entity
+{
+    float x;
+    float y;
+    int w;
+    int h;
+    float dx;
+    float dy;
+    int health;
+    int angle;
+    SDL_Texture *texture;
+    Entity *next;
+};
 
 /* App structure. */
 typedef struct 
@@ -37,3 +54,9 @@ typedef struct
     Mouse mouse; // Reading the mouse.
     Texture textureHead, *textureTail;
 } App;
+
+/* Stage struct. */
+typedef struct 
+{
+    Entity entityHead, *entityTail; // Holds linked list of entites.
+} Stage;
