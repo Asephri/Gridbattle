@@ -2,14 +2,11 @@
 Copyright (C) 2023-2024 Asephri. All rights reserved.
 */
 
-/* Headers. */
 #include "common.h"
 #include "input.h"
 
-/* Externs. */
 extern App app;
 
-/* If A keyboard key is NOT pressed. */
 static void doKeyUp(SDL_KeyboardEvent *event)
 {
 	if (event->repeat == 0 && event->keysym.scancode < MAX_KEYBOARD_KEYS)
@@ -18,7 +15,6 @@ static void doKeyUp(SDL_KeyboardEvent *event)
 	}
 }
 
-/* If A keyboard key IS pressed. */
 static void doKeyDown(SDL_KeyboardEvent *event)
 {
 	if (event->repeat == 0 && event->keysym.scancode < MAX_KEYBOARD_KEYS)
@@ -27,35 +23,31 @@ static void doKeyDown(SDL_KeyboardEvent *event)
 	}
 }
 
-/* Game Input Reciever*/
 void doInput(void)
 {
-    // Console Message.
     //printf("Calling doInput.\n");
     SDL_Event event;
 
-    // While input is polled.
     while (SDL_PollEvent(&event))
     {
         switch (event.type)
         {
-            case SDL_QUIT: // If the application is closed.
+            case SDL_QUIT:
                 printf("SDL_QUIT has been called! Closing application.\n");
                 exit(0);
                 break;
-            case SDL_KEYDOWN: // If keydown is pressed.
+            case SDL_KEYDOWN:
                 //printf("Keydown was pressed!\n");
                 doKeyDown(&event.key);
                 break;
-            case SDL_KEYUP: // If keydown isnt pressed.
+            case SDL_KEYUP:
                 //printf("Keydown was released!\n");
                 doKeyUp(&event.key);
                 break;
-            default: // Default outcome.
+            default:
                 //printf("default break was called in SDL_PollEvent\n");
                 break;
         }
     }
-    // Get Mouse location Information.
     SDL_GetMouseState(&app.mouse.x,&app.mouse.y);
 }
