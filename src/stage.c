@@ -2,7 +2,6 @@
 Copyright (C) 2023-2024 Asephri. All rights reserved.
 */
 
-/* Headers. */
 #include "common.h"
 #include "draw.h"
 #include "entities.h"
