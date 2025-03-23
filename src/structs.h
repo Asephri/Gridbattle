@@ -2,18 +2,15 @@
 Copyright (C) 2023-2024 Asephri. All rights reserved.
 */
 
-/* Type definitions for structures. */
 typedef struct Texture Texture;
 typedef struct Entity Entity;
 
-/* App delegation structure.*/
 typedef struct
 {
     void (*logic)(void);
     void (*draw)(void);
 } Delegate;
 
-/* Texture structure. */
 struct Texture
 {
     char name[MAX_NAME_LENGTH];
@@ -21,7 +18,6 @@ struct Texture
     Texture *next;
 };
 
-/* Mouse Reader structure.*/
 typedef struct
 {
     int x;
@@ -29,7 +25,6 @@ typedef struct
     int button[MAX_MOUSE_BUTTONS];
 } Mouse;
 
-/* Entity struct. */
 struct Entity
 {
     float x;
@@ -44,19 +39,17 @@ struct Entity
     Entity *next;
 };
 
-/* App structure. */
 typedef struct 
 {
     SDL_Renderer *renderer;
     SDL_Window *window;
-    Delegate delegate; // App delegation.
+    Delegate delegate;
     int keyboard[MAX_KEYBOARD_KEYS];
-    Mouse mouse; // Reading the mouse.
+    Mouse mouse;
     Texture textureHead, *textureTail;
 } App;
 
-/* Stage struct. */
 typedef struct 
 {
-    Entity entityHead, *entityTail; // Holds linked list of entites.
+    Entity entityHead, *entityTail;
 } Stage;
