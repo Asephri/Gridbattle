@@ -2,29 +2,21 @@
 Copyright (C) 2023-2024 Asephri. All rights reserved.
 */
 
-/* Libraries. */
 #include <SDL2/SDL_image.h>
 
-/* Headers. */
 #include "common.h"
 #include "draw.h"
 
-/* Externs. */
 extern App app;
 
-/* Preparing the renderer. */
 void prepareScene(void)
 {
-    // Console message.
     //printf("Preparing the Renderer.\n");
-    // Overall drawcolour.
     SDL_SetRenderDrawColor(app.renderer, 0,255,0,255);
     SDL_RenderClear(app.renderer);
-    // Console Message.
     //printf("Successful.\n");
 }
 
-/* Presenting the renderer. */
 void presentScene(void)
 {
     //printf("Presenting the renderer.\n");
@@ -50,10 +42,8 @@ static SDL_Texture *getTexture(char *name)
     printf("Successful.\n");
 }
 
-/* add Textures from cache. */
 static void addTextureToCache(char *name, SDL_Texture *sdlTexture)
 {
-    // Console message.
     printf("Adding Textures to cache.\n");
     Texture *texture;
 
@@ -68,10 +58,8 @@ static void addTextureToCache(char *name, SDL_Texture *sdlTexture)
     printf("Successful.\n");
 }
 
-/* Load Textures. */
 SDL_Texture *loadTexture(char *filename)
 {
-    // Console message.
     //printf("Loading Textures.\n");
     SDL_Texture *texture;
 
@@ -88,16 +76,14 @@ SDL_Texture *loadTexture(char *filename)
     //printf("Successful.\n");
 }
 
-/* Blit function for Textures. */
 void blit(SDL_Texture *texture, int x, int y, int center)
 {
-    // Console message.
     //printf("Applying Textures.\n");
     SDL_Rect dest;
 
     dest.x = x;
     dest.y = y;
-    // Query Texture
+
     SDL_QueryTexture(texture, NULL, NULL, &dest.w, &dest.h);
 
     if (center)
@@ -105,12 +91,10 @@ void blit(SDL_Texture *texture, int x, int y, int center)
         dest.x -= dest.w / 2;
         dest.y -= dest.h / 2;
     }
-    // Apply Texture.
     SDL_RenderCopy(app.renderer, texture, NULL, &dest);
     //printf("Successful.\n");
 }
 
-/* Create rectangle for texture. */
 void blitRect(SDL_Texture *texture, SDL_Rect *src, int x, int y)
 {
     SDL_Rect dest;
@@ -123,16 +107,15 @@ void blitRect(SDL_Texture *texture, SDL_Rect *src, int x, int y)
     SDL_RenderCopy(app.renderer, texture, src, &dest);
 }
 
-/* Rotate texture. */
 void blitRotated(SDL_Texture *texture, int x, int y, float angle)
 {
     SDL_Rect dstRect;
 
-    dstRect.x = x; // Where to draw.
-    dstRect.y = y; // Where to draw at y.
+    dstRect.x = x;
+    dstRect.y = y;
     SDL_QueryTexture(texture, NULL, NULL, &dstRect.w, &dstRect.h);
-    dstRect.x -= (dstRect.w / 2); // Shift texture by half width.
-    dstRect.y -= (dstRect.h / 2);// Shift texture by half height.
+    dstRect.x -= (dstRect.w / 2);
+    dstRect.y -= (dstRect.h / 2);
 
     SDL_RenderCopyEx(app.renderer, texture, NULL, &dstRect, angle, NULL, SDL_FLIP_NONE);
 }
