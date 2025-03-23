@@ -2,7 +2,6 @@
 Copyright (C) 2023-2024 Asephri. All rights reserved.
 */
 
-/* Functions. */
 void prepareScene(void);
 void presentScene(void);
 SDL_Texture *loadTexture(char *filename);
