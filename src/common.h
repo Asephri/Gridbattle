@@ -2,7 +2,6 @@
 Copyright (C) 2023-2024 Asephri. All rights reserved.
 */
 
-/* Required. */
 #include "ctype.h"
 #include "defs.h"
 #include "math.h"
